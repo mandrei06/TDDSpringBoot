@@ -1,5 +1,9 @@
 package com.tddapp.springboottddapp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Note {
 
     private int id;
@@ -23,6 +27,10 @@ public class Note {
         this.link = link;
         this.mentions = mentions;
         this.priority = priority;
+    }
+
+    public Note() {
+
     }
 
     public int getId() {
@@ -114,5 +122,35 @@ public class Note {
         setDescription(description);
         setText(text);
         setState(state);
+    }
+
+    public String differentiateLink(){
+        if (this.getLink().contains("@")){
+            return "email";
+        }else if(this.getLink().toUpperCase().contains("YOUTUBE")){
+            return "Youtube link";
+        }else if (this.getLink().toUpperCase().contains("PDF")){
+            return "Pdf file";
+        }else{
+            return "Normal Webpage";
+        }
+    }
+
+    public String differentiateProfile(){
+        if (this.getMentions().toUpperCase().contains("TWITTER")){
+            return "Twitter Profile";
+        }else if(this.getMentions().toUpperCase().contains("INSTAGRAM")){
+            return "Integram Profile";
+        }else if (this.getMentions().toUpperCase().contains("FACEBOOK")){
+            return "Facebook Profile";
+        }else{
+            return "No Profile";
+        }
+    }
+
+    public boolean compareDates() throws ParseException {
+        Date completionDate=new SimpleDateFormat("dd/MM/yyyy").parse(this.completioDate);
+        Date creationDate=new SimpleDateFormat("dd/MM/yyyy").parse(this.creationDate);
+        return completionDate.after(creationDate);
     }
 }

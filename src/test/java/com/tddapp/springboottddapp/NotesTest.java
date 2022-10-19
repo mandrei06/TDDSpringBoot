@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
+
 public class NotesTest {
 
     NoteController noteController;
@@ -18,8 +20,8 @@ public class NotesTest {
                 "my note description",
                 "Do this and that",
                 true,
-                "wwww.link.com",
-                "do it in the morning",
+                "wwww.youtube.com",
+                "wwww.twitter.do it in the morning",
                 true
         );
     }
@@ -58,6 +60,31 @@ public class NotesTest {
         String actualNote = noteController.displayNote(note.getId());
         Assert.assertEquals(actualNote, note.toString());
     }
+
+    @Test
+    public void differentiateLinksTest(){
+        // DOne
+        Assert.assertEquals(note.differentiateLink(),"Youtube link");
+
+    }
+
+    @Test
+    public void dateTest() throws ParseException {
+    Assert.assertTrue("Correct",note.compareDates());
+    }
+
+    @Test
+    public void mentionLinksTest(){
+        Assert.assertEquals(note.differentiateProfile(),"Twitter Profile");
+
+    }
+
+    @Test
+    public void prioritiesTest(){
+        Assert.assertTrue("Is prioritary",note.isPriority());
+
+    }
+
 
 
 }
